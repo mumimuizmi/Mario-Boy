@@ -1,0 +1,261 @@
+/* RESET */
+* { box-sizing: border-box; touch-action:none; user-select:none; }
+html, body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #a6d9ff;
+  color: #222;
+  overflow-x: hidden;
+}
+
+/* START SCREEN */
+.start-screen {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+/* Hanya Start Screen yang pakai font Mario */
+.start-screen, .start-screen * { font-family: 'Press Start 2P', cursive; }
+
+.start-card { margin-top: -10vh; text-align: center; }
+.start-title {
+  font-size: 32px; color: white; margin-bottom: 20px;
+  text-shadow:
+   -3px -3px 0 #000, 3px -3px 0 #000,
+   -3px  3px 0 #000, 3px  3px 0 #000,
+   0 0 10px rgba(255,255,255,0.8);
+}
+.start-btn {
+  background: rgba(255,255,255,0.2);
+  border: 3px solid #00ff5e; color: #00ff5e;
+  padding: 14px 24px; border-radius: 16px; cursor: pointer; font-size: 14px;
+  box-shadow: 0 0 16px #00ff5e, inset 0 0 10px rgba(0,255,100,0.3);
+  transition: 0.25s;
+}
+.start-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px #00ff5e, inset 0 0 18px rgba(0,255,100,0.6); }
+.about-btn {
+  background: rgba(255,255,255,0.2);
+  border: 3px solid #ffdd00; color:#ffdd00;
+  padding:10px 20px; border-radius:16px; cursor:pointer; font-size:12px;
+  box-shadow:0 0 16px #ffdd00, inset 0 0 10px rgba(255,221,0,0.3);
+  transition:.25s; margin-top:10px;
+}
+.about-btn:hover { transform:scale(1.05); box-shadow:0 0 25px #ffdd00, inset 0 0 18px rgba(255,221,0,0.6); }
+
+/* WORLD */
+#game { height: calc(100vh - 160px); }
+.world {
+  position: relative; height:100%; width: 2200px; margin:0 auto; overflow:hidden;
+  background: linear-gradient(to top, #87ceeb 0%, #a6d9ff 100%);
+}
+
+/* CLOUDS */
+.cloud { position:absolute; width:120px; height:50px; background:#fff; border-radius:40px; opacity:.9; }
+.cloud::before, .cloud::after { content:""; position:absolute; background:#fff; border-radius:50%; }
+.cloud::before { width:70px; height:70px; left:8px; top:-30px; }
+.cloud::after { width:60px; height:60px; right:8px; top:-24px; }
+
+/* GROUND */
+.ground { position:absolute; left:0; right:0; bottom:0; height:90px; background:#6b4f2a; }
+.ground::before {
+  content:""; position:absolute; left:0; right:0; top:-16px; height:20px;
+  background:repeating-linear-gradient(90deg,#27ae60 0 14px,#2ecc71 14px 28px);
+}
+
+/* PLAYER */
+.player { position:absolute; width:34px; height:44px; transition:transform .1s; }
+.player.flip { transform:scaleX(-1); }
+.player.squash { transform:scaleY(.85); }
+.player .body { background:#2980b9; border-radius:6px 6px 10px 10px; position:absolute; inset:0; box-shadow:0 0 0 2px #00000025 inset; }
+.player .head { width:28px; height:22px; left:3px; top:-18px; background:#ffd7b1; border-radius:8px; position:absolute; box-shadow:0 0 0 2px #00000020 inset; overflow:hidden; }
+.player .hat { width:34px; height:12px; left:0; top:-8px; background:#e74c3c; border-radius:12px 12px 4px 4px; position:absolute; box-shadow:0 3px 0 #c0392b inset; }
+.player .leg { width:12px; height:16px; bottom:-8px; background:#2c3e50; border-radius:4px; position:absolute; }
+.player .leg.right { left:18px; }
+.player .leg.left { left:4px; }
+.walking .leg.left { animation:step .35s infinite alternate; }
+.walking .leg.right{ animation:step .35s .175s infinite alternate; }
+@keyframes step { from { transform:translateY(0);} to { transform:translateY(3px);} }
+
+/* === MODERN CAKE LATTE === */
+.cake {
+  position: absolute; width: 40px; height: 30px;
+  background: #d2691e; border-radius: 6px;
+  box-shadow: 0 0 0 2px #00000025 inset, 0 4px 6px rgba(0,0,0,0.2);
+  overflow: visible;
+}
+.cake::before {
+  content: ""; position: absolute; top: -10px; left: 0; right: 0; height: 12px;
+  background: #fff5e1; border-radius: 6px 6px 0 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.cake::after {
+  content: ""; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  width: 6px; height: 12px; background: #ff6347; border-radius: 2px; box-shadow: 0 0 0 1px #00000030 inset;
+}
+.candle-flame {
+  position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+  width: 8px; height: 12px;
+  background: radial-gradient(circle at center, #ffeb3b, #ff9800, #f44336);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow: 0 0 6px rgba(255,165,0,0.8);
+  animation: flameBlink 1s infinite alternate;
+}
+@keyframes flameBlink {
+  0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+  100% { transform: translateX(-50%) scale(1.15); opacity: 0.6; }
+}
+.cake.pulse { animation: pulseCake 1.4s infinite; }
+@keyframes pulseCake { 0%{transform:scale(1);} 50%{transform:scale(1.08);} 100%{transform:scale(1);} }
+
+/* OBSTACLES */
+.obstacle { position:absolute; }
+.block {
+  position:absolute; width:60px; height:60px;
+  background:linear-gradient(#f1c40f,#f39c12);
+  border-radius:12px; box-shadow:0 6px 0 #d4ac0d inset, 0 0 0 2px #00000030 inset;
+}
+.pipe {
+  position:absolute; width:60px; height:90px;
+  background:linear-gradient(#27ae60,#2ecc71);
+  border-radius:0 0 12px 12px; box-shadow:0 6px 0 #16a085 inset, 0 0 0 2px #00000030 inset;
+}
+.pipe::after {
+  content:""; position:absolute; left:0; right:0; top:-6px; height:6px;
+  background:linear-gradient(#2ecc71,#27ae60);
+  border-radius:6px 6px 0 0; box-shadow:0 3px 0 #16a085 inset;
+}
+
+/* 🌳 POHON */
+.tree-trunk {
+  position:absolute; width:50px; height:70px;
+  background:linear-gradient(#8e5a2b,#6b4f2a); border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+.tree-leaf {
+  position:absolute; width:130px; height:110px;
+  background:linear-gradient(#27ae60,#2ecc71);
+  border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* LAVA */
+.lava {
+  background:linear-gradient(#ff6b6b,#ff3b3b);
+  border-top:3px solid #b91c1c; border-radius:4px;
+}
+
+/* MODAL & CONFETTI */
+.confetti { position:fixed; inset:0; pointer-events:none; }
+.modal { position:fixed; inset:0; display:none; place-items:center; background:rgba(0,0,0,.35); backdrop-filter:blur(4px); }
+.modal.show { display:grid; }
+.card {
+  background:#fff; border-radius:18px; padding:22px; max-width:520px; text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+.close { padding:10px 16px; border:none; border-radius:10px; background:#222; color:#fff; }
+
+#modalAbout .card { box-shadow: 0 20px 60px rgba(255, 200, 120, 0.3); }
+.hidden { display: none !important; }
+
+/* CONTROLS LAYOUT */
+.controls {
+  position:fixed; left:0; right:0; bottom:10px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  padding:0 14px; z-index:999;
+}
+
+/* === NES Retro Button Style === */
+.dpad {
+  position: absolute;
+  left: 16px;
+  bottom: 20px; /* naik sedikit 20px dari bawah */
+  display: flex;
+  gap: 12px;
+  z-index: 1000;
+}
+.nes-btn {
+  width: 70px; height: 70px;
+  background: #c4c4c4;
+  border: 5px solid #000;
+  image-rendering: pixelated;
+  position: relative;
+  box-shadow: 0 0 0 3px #555 inset;
+}
+.nes-left::before,
+.nes-right::before {
+  content: "";
+  position: absolute; left: 50%; top: 50%;
+  width: 22px; height: 22px; background: #000;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+/* Panah kiri */
+.nes-left::before {
+  clip-path: polygon(0% 50%, 50% 0%, 50% 30%, 100% 30%, 100% 70%, 50% 70%, 50% 100%);
+}
+/* Panah kanan */
+.nes-right::before {
+  clip-path: polygon(100% 50%, 50% 0%, 50% 30%, 0% 30%, 0% 70%, 50% 70%, 50% 100%);
+}
+
+/* Tombol kanan (Jump & Reset) — posisikan sejajar horizontal di kanan bawah */
+.btns {
+  position: absolute;
+  right: 16px;
+  bottom: 20px; /* sejajar dengan NES D-Pad */
+  display: flex;
+  gap: 12px; /* jarak antar tombol */
+  z-index: 1000;
+}
+
+.btn {
+  border:5px black solid; border-radius:999px; min-width:90px; min-height:90px;
+  background: #c4c4c4;; box-shadow:0 10px 24px rgba(0,0,0,.18); font-weight:700;
+}
+.btn.small { min-width:64px; min-height:64px; }
+
+/* Pastikan ground menempel */
+.ground { bottom:0 !important; height:90px; background:#6b4f2a; }
+
+/* --- Responsive Mode (HP) --- */
+@media (max-width: 768px) {
+  /* World keseluruhan diperkecil dan dinaikkan */
+  .world {
+    transform-origin: bottom left;
+    transform: scale(0.8) translateY(60px);
+  }
+
+  /* Semua elemen besar ikut menyesuaikan */
+  .block, .pipe, .tree-trunk, .tree-leaf {
+    transform: scale(0.9);
+    transform-origin: bottom;
+  }
+
+  /* Ground lebih tipis supaya gak nutup badan player */
+  .ground {
+    height: 65px !important;
+  }
+
+  /* Lava ikut tipis */
+  .lava {
+    height: 8px !important;
+  }
+
+  /* Cake sedikit lebih kecil biar pas di pohon */
+  .cake {
+    transform: scale(0.9);
+  }
+
+  /* Player tetap normal ukurannya */
+  .player {
+    transform: scale(1);
+  }
+
+  /* Tombol kontrol tetap di posisi semula */
+  .dpad, .btns {
+    transform: scale(0.9);
+  }
+}
+

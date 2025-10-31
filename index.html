@@ -1,0 +1,91 @@
+  <!DOCTYPE html>
+  <html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>For You</title>
+    <meta name="description" content="Game mini 1 level: Mario Boy dengan cake di atas pohon, start screen neon, dan rintangan padat.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font arcade style untuk Start Screen -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- Start Screen -->
+    <div id="startScreen" class="start-screen">
+      <div class="start-card">
+        <h1 class="start-title">Mario Boy</h1>
+        <hr><br>
+        <button id="startBtn" class="start-btn">START</button><br>
+        <button id="aboutBtn" class="about-btn">About</button>
+      </div>
+    </div>
+
+    <!-- Game -->
+    <div id="game" tabindex="0" aria-label="Mario Boy Game">
+      <div class="world" id="world">
+        <!-- Awan -->
+        <div class="cloud" style="left:120px; top:40px"></div>
+        <div class="cloud" style="left:560px; top:80px; transform:scale(.9)"></div>
+        <div class="cloud" style="left:980px; top:30px; transform:scale(1.2)"></div>
+        <div class="cloud" style="left:1400px; top:70px; transform:scale(.8)"></div>
+        <div class="cloud" style="left:1800px; top:50px; transform:scale(1.1)"></div>
+        <div class="cloud" style="left:2200px; top:90px; transform:scale(.7)"></div>
+
+        <!-- Pemain -->
+        <div class="player" id="player" style="left:40px; bottom:90px">
+          <div class="hat"></div>
+          <div class="head"></div>
+          <div class="body"></div>
+          <div class="leg left"></div>
+          <div class="leg right"></div>
+        </div>
+
+        <!-- Cake (posisi diatur JS; di atas pohon) -->
+        <div class="cake pulse" id="gift">
+          <div class="candle-flame"></div>
+        </div>
+
+        <!-- Tanah -->
+        <div class="ground"></div>
+      </div>
+    </div>
+
+    <!-- Kontrol -->
+    <div class="controls" id="controls" style="display:none;">
+      <!-- NES D-Pad (ganti analog) -->
+      <div class="dpad" aria-label="NES D-Pad">
+        <button id="btnLeft" class="nes-btn nes-left" aria-label="Left"></button>
+        <button id="btnRight" class="nes-btn nes-right" aria-label="Right"></button>
+      </div>
+      <!-- Jump & Reset tetap di kanan -->
+      <div class="btns">
+        <button class="btn" id="jumpBtn" aria-label="Jump">Jump</button>
+        <button class="btn small" id="resetBtn" title="Reset">↺</button>
+      </div>
+    </div>
+
+    <!-- Modal Gift -->
+    <div class="modal" id="modal">
+      <div class="card">
+        <h2 class="title" id="msgTitle">Happy Birthday! 🎉</h2>
+        <p class="subtitle" id="msgText">Semoga sehat, bahagia, dan semua harapanmu tercapai. 🎂✨</p>
+        <button class="close" id="closeModal">Tutup</button>
+      </div>
+    </div>
+
+    <!-- Modal About -->
+    <div class="modal" id="modalAbout">
+      <div class="card">
+        <h2 class="title">About This Game</h2>
+        <p class="subtitle">Aku buat game nya cuma buat ngucapanin ulang tahun ke <b>Kamu</b>. Maaf yaa kaloo game nya jelekk. soalnya aku bukan bagian Game Development 🤗</p>
+        <button class="close" id="closeAbout">Tutup</button>
+      </div>
+    </div>
+
+    <!-- Konfeti -->
+    <div class="confetti" id="confetti"></div>
+
+    <script src="game.js"></script>
+  </body>
+  </html>
